@@ -1,4 +1,6 @@
-# Recorded setting, expressed as a reproducible command.
+# Historical configuration note, expressed as a reproducible command.
+# On 2026-09-07 SELinux was Enforcing, but getsebool could not read the
+# active value. Do not treat the current boolean state as reverified.
 sudo setsebool -P httpd_can_network_connect on
 
 # Verification

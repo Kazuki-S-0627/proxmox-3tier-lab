@@ -8,11 +8,12 @@
 - `fortigate/`: インターフェース、アドレスオブジェクト、Web→Appポリシーの再構成例
 - `web01/`: NginxとSELinuxの公開用例
 - `app01/`: 現在確認できているFlaskの範囲
-- `db01/`: 現在確認できているPostgreSQLの範囲
+- `db01/`: PostgreSQLの確認範囲と起動順序drop-in
 
 ## 注意
 
 - アドレスはRFC 5737の文書用アドレスです。
 - FortiGateのポリシーID、オブジェクト名は公開用の仮名です。
-- Nginx設定は、記録済みのWeb→App通信意図を説明するための最小例です。実機からのコピーではありません。
-- Flaskコード、systemd設定、PostgreSQL設定は元メモにないため追加していません。
+- Nginx設定は、実機で確認した`proxy_pass`、`Host`、`X-Real-IP`だけを文書用アドレスで再構成しています。実機からのコピーではありません。
+- PostgreSQLのsystemd drop-inは検証した3行だけを再構成しています。
+- Flaskソース、DB名・ユーザー名・認証情報、PostgreSQL設定ファイル全体は掲載していません。

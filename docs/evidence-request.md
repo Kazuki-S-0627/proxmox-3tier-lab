@@ -1,53 +1,34 @@
-# 追加証跡の最小セット
+# 残っている追加証跡
 
-READMEの「確認待ち」を更新するために必要な出力だけを集めます。画面全体や設定バックアップは不要です。
+2026-09-07に、Web→Appポリシー、app01の待受とfirewalld、App→DB、PostgreSQLの起動順序修正、db01再起動後のNginx→Flask→PostgreSQLを収集済みです。画面全体や設定バックアップは公開せず、残項目に必要な最小出力だけを集めます。
 
 ## Client→Web
+
+未検証です。試験時はMac/PVEホストからラボのDMZ/Internalネットワークへの直接経路がありませんでした。経路を安全に用意した後、次を確認します。
 
 ```bash
 curl -sS -o /dev/null -w '%{http_code}\n' http://<WEB01_IP>/
 ```
 
-## web01
+## web01のSELinuxブール値
+
+SELinuxが`Enforcing`であることは確認済みですが、今回の`getsebool httpd_can_network_connect`は`Error getting active value`となり、現在値を再確認できていません。
 
 ```bash
-sudo ss -lntp | grep ':80 '
 getenforce
 getsebool httpd_can_network_connect
-curl -sS -o /dev/null -w '%{http_code}\n' http://<APP01_IP>:5000/
 ```
 
-必要な行だけ残し、`<APP01_IP>`を含む実アドレス、ユーザー名、ホスト名は公開前に置換します。
+必要な行だけ残し、ユーザー名とホスト名は公開前に置換します。
 
-## app01
+## 任意の追加検証
+
+Flaskは今回`./venv/bin/python app.py`で手動起動しました。将来サービス化した場合は、app01再起動後に次を再確認します。
 
 ```bash
 sudo ss -lntp | grep ':5000 '
-curl -sS -o /dev/null -w '%{http_code}\n' http://127.0.0.1:5000/
-pg_isready -h <DB01_IP> -p 5432
+curl -sS -o /dev/null -w '%{http_code}\n' http://127.0.0.1:5000/customers
 ```
-
-`pg_isready`がない場合は追加インストールを急がず、利用中の方法を確認してから代替します。データベース名・ユーザー名・接続文字列は共有しません。
-
-## db01
-
-```bash
-sudo ss -lntp | grep ':5432 '
-sudo -u postgres pg_isready
-```
-
-PostgreSQLの設定ファイル全体、データ、ダンプは共有しません。
-
-## FortiGate
-
-次の4点が見える箇所だけを、値を伏せたスクリーンショットまたはテキストで用意します。
-
-1. 送信元インターフェースがDMZ側であること
-2. 宛先インターフェースがInternal側であること
-3. 送信元がweb01、宛先がapp01、サービスがTCP/5000であること
-4. NATが無効であること
-
-設定の全量エクスポート、診断ファイル、ライセンス画面は共有しません。
 
 ## 受け渡し前の伏せ字
 
