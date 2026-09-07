@@ -1,0 +1,30 @@
+# Documentation-only inventory. These are RFC 5737 addresses, not live values.
+firewall:
+  platform: FortiGate
+  interfaces:
+    port1:
+      role: uplink
+      address: 192.0.2.2/24
+    port2:
+      role: dmz
+      address: 198.51.100.1/24
+    port3:
+      role: internal
+      address: 203.0.113.1/24
+
+hosts:
+  web01:
+    zone: dmz
+    address: 198.51.100.10/24
+    service: nginx
+    port: 80/tcp
+  app01:
+    zone: internal
+    address: 203.0.113.10/24
+    service: flask
+    port: 5000/tcp
+  db01:
+    zone: internal
+    address: 203.0.113.20/24
+    service: postgresql
+    port: 5432/tcp

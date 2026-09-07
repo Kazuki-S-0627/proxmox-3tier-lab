@@ -1,0 +1,55 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.secret
+*.secrets
+credentials*
+secrets*
+
+# Keys and certificates
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa*
+id_ed25519*
+
+# Raw exports, backups, and dumps
+*.backup
+*.bak
+*.dump
+*.sql
+*.pcap
+*.pcapng
+*.diag
+*.confidential
+*.unredacted.*
+raw/
+private/
+screenshots/raw/
+
+# Virtual machine and installation media
+*.iso
+*.ova
+*.ovf
+*.qcow2
+*.vmdk
+*.vdi
+
+# OS and editor files
+.DS_Store
+__MACOSX/
+._*
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~
+
+# Temporary output
+tmp/
+work/
+*.log

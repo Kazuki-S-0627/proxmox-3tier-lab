@@ -1,0 +1,5 @@
+# Recorded setting, expressed as a reproducible command.
+sudo setsebool -P httpd_can_network_connect on
+
+# Verification
+getsebool httpd_can_network_connect
